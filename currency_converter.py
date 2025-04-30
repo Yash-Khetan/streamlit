@@ -1,8 +1,8 @@
 import streamlit as st
-import requests
+import requests 
 st.title("Live currency converter")
 amount = st.number_input("Enter the amount(INR)", min_value = 1)
-currency = st.selectbox("Convert to ",["USD","EURO","GDP","JPY"])
+currency = st.selectbox("Convert to ",["USD","EUR","AED"])
 
 if st.button("Convert"):
     url = "https://api.exchangerate-api.com/v4/latest/INR"
