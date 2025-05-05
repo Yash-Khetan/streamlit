@@ -109,8 +109,8 @@ if st.session_state.history:
 with open("tasks.txt", "r") as file:
     content = file.read()
     st.write("Saved tasks: ", content)
-    st.download_button("📥 Download Task History", content, file_name="tasks.txt")
-
+    st.download_button("📥 Download Task History", data = content, file_name="tasks.txt")
+   
 # Display history table
 if st.session_state.history:
     st.subheader("📈 Session History")
