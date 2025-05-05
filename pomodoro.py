@@ -1,7 +1,6 @@
 import streamlit as st
 import time
 
-
 st.title("Pomodoro Timer ⏱️")
 
 # Task input
@@ -9,26 +8,12 @@ chapter_name = st.text_input("📚 Enter Task:")
 if chapter_name:
     st.success(f"✅ Task added: {chapter_name}")
 
-estimatedwords = st.number_input("Enter the estimated words ", min_value = 100)
+estimatedwords = st.number_input("Enter the estimated words ", min_value=100)
 if estimatedwords:
     pomosneeded = estimatedwords / 500
     if pomosneeded == 0:
-        pomosneeeded = 1
-    st.info(f"Pomos neeeded would be {pomosneeded}")
-
-with open("tasks.txt","w") as file:
-    for item in st.session_state.history:
-        
-        file.write(item['Task'])
-    file.close()
-
-with open("tasks.txt", "r") as file:
-    content = file.read()
-    st.write("Saved tasks: ", content)
-    st.download_button("📥 Download Task History", content, file_name="tasks.txt")
-
-    
-    
+        pomosneeded = 1  # Fixed typo
+    st.info(f"Pomos needed would be {pomosneeded}")
 
 # Initialize session state
 if "mode" not in st.session_state:
@@ -113,6 +98,18 @@ if st.session_state.timer == 0 and st.session_state.time_running:
         st.session_state.timer = 25
 
     st.rerun()
+
+# Save task history to a text file
+if st.session_state.history:
+    with open("tasks.txt", "w") as file:
+        for item in st.session_state.history:
+            file.write(f"Task: {item['Task']}, Pomodoros: {item['Pomodoros']}\n")
+
+# Display saved task history and download button
+with open("tasks.txt", "r") as file:
+    content = file.read()
+    st.write("Saved tasks: ", content)
+    st.download_button("📥 Download Task History", content, file_name="tasks.txt")
 
 # Display history table
 if st.session_state.history:
